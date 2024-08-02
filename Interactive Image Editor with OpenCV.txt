@@ -1,0 +1,26 @@
+import cv2
+import numpy as np
+
+def nothing(x):
+    pass
+cv2.namedWindow("Window")
+cv2.createTrackbar("B","Window",0,255,nothing)
+switch = "Color / Gray"
+cv2.createTrackbar(switch,"Window",0,1,nothing)
+
+while True:
+#The image file should be in the same folder 
+    img = cv2.imread('img.jpg',1) 
+
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+    b = cv2.getTrackbarPos("B","Window")
+    cv2.putText(img,str(b),(10,20),cv2.FONT_HERSHEY_COMPLEX,2,(25,41,89),2)
+    s = cv2.getTrackbarPos(switch,"Window")
+    if s == 0:
+        pass
+    else:
+        img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    img = cv2.imshow("Window",img)
+
+cv2.destroyAllWindows()
