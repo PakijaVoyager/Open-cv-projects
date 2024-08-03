@@ -15,7 +15,7 @@ while True:
     if cv2.waitKey(1) & 0xFF == 27:
         break
     b = cv2.getTrackbarPos("B","Window")
-    cv2.putText(img,str(b),(10,20),cv2.FONT_HERSHEY_COMPLEX,2,(25,41,89),2)
+    cv2.putText(img,str(b),(10,20),cv2.FONT_HERSHEY_COMPLEX,2,(0,255,0),2)
     s = cv2.getTrackbarPos(switch,"Window")
     if s == 0:
         pass
