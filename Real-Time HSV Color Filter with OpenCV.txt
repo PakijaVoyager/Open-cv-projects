@@ -1,0 +1,31 @@
+import cv2
+import numpy as np
+def nothing(x):
+    pass
+vd = cv2.VideoCapture(0)
+cv2.namedWindow("Window")
+cv2.createTrackbar("LH","Window",0,255,nothing)
+cv2.createTrackbar("LS","Window",0,255,nothing)
+cv2.createTrackbar("LV","Window",0,255,nothing)
+cv2.createTrackbar("UH","Window",255,255,nothing)
+cv2.createTrackbar("US","Window",255,255,nothing)
+cv2.createTrackbar("UV","Window",255,255,nothing)
+while True:
+    ret,frame = vd.read()
+    l_h = cv2.getTrackbarPos("LH","Window")
+    l_s = cv2.getTrackbarPos("LS","Window")
+    l_v = cv2.getTrackbarPos("LV","Window")
+    u_h = cv2.getTrackbarPos("UH","Window")
+    u_s = cv2.getTrackbarPos("US","Window")
+    u_v = cv2.getTrackbarPos("UV","Window")
+    lower_v = np.array([l_h,l_s,l_v])
+    upper_v = np.array([u_h,u_s,u_v])
+    mask1 = cv2.inRange(frame,lower_v,upper_v)
+    res = cv2.bitwise_and(frame,frame,mask=mask1)
+    cv2.imshow("Window",frame)
+    cv2.imshow("Window1",mask1)
+    cv2.imshow("Window2",res)
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+vd.release()
+cv2.destroyAllWindows()
